@@ -58,6 +58,14 @@ public:
 	FOnStatusEffectOverride& OnStatusEffectOverride() const;
 
 	FOnStatusEffectRevoked& OnStatusEffectRevoked() const;
+
+	FOnStatusEffectAdded& OnStatusEffectAdded() const;
+
+	FOnStatusEffectRemoved& OnStatusEffectRemoved() const;
+
+	FOnStatusEffectAddedOverride& OnStatusEffectAddedOverride() const;
+
+	FOnStatusEffectRemovedOverride& OnStatusEffectRemovedOverride() const;
 	
 	UFUNCTION(BlueprintNativeEvent, DisplayName = "On Status Effect Added")
 	EObserverOverrideResult OnStatusEffectAddedBP(UAbilitySystemComponent* ASC, FGameplayEffectSpec Spec,
@@ -87,13 +95,13 @@ protected:
 
 private:
 
-	FOnStatusEffectAddedOverride OnStatusEffectAddedOverrideDelegate;
+	mutable FOnStatusEffectAddedOverride OnStatusEffectAddedOverrideDelegate;
 
-	FOnStatusEffectRemovedOverride OnStatusEffectRemovedOverrideDelegate;
+	mutable FOnStatusEffectRemovedOverride OnStatusEffectRemovedOverrideDelegate;
 
-	FOnStatusEffectAdded OnStatusEffectAddedDelegate;
+	mutable FOnStatusEffectAdded OnStatusEffectAddedDelegate;
 
-	FOnStatusEffectRemoved OnStatusEffectRemovedDelegate;
+	mutable FOnStatusEffectRemoved OnStatusEffectRemovedDelegate;
 
 	UPROPERTY(BlueprintAssignable, meta = (AllowPrivateAccess = "true"))
 	mutable FOnStatusEffectGranted OnStatusEffectGrantedDelegate;

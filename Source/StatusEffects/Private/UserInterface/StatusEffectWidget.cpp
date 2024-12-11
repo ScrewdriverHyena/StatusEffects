@@ -19,24 +19,26 @@ void UStatusEffectWidget::NativeOnInitialized()
 	const UStatusEffectObserver* Observer = UStatusEffectBlueprintLibrary::GetObserverByLocalPlayer(Owner);
 	check(IsValid(Observer));
 
-	Observer->OnStatusEffectGranted().AddUniqueDynamic(this, &UStatusEffectWidget::StatusEffectAdd);
-	Observer->OnStatusEffectOverride().AddUniqueDynamic(this, &UStatusEffectWidget::StatusEffectOverride);
-	Observer->OnStatusEffectRevoked().AddUniqueDynamic(this, &UStatusEffectWidget::StatusEffectRemove);
-}
-
-void UStatusEffectWidget::StatusEffectAdd(UAbilitySystemComponent*, UAbilitySystemComponent*, const FStatusEffectRequest&)
-{
-	Refresh();
+	Observer->OnStatusEffectOverride().AddUniqueDynamic(this, &ThisClass::StatusEffectOverride);
+	Observer->OnStatusEffectAdded().AddUObject(this, &ThisClass::StatusEffectAdd);
+	Observer->OnStatusEffectRemoved().AddUObject(this, &ThisClass::StatusEffectRemove);
 }
 
 void UStatusEffectWidget::StatusEffectOverride(const FStatusEffectOverrideInfo&)
 {
-	Refresh();
+	(void)Refresh();
 }
 
-void UStatusEffectWidget::StatusEffectRemove(UAbilitySystemComponent*, const FStatusEffectRequest&)
+void UStatusEffectWidget::StatusEffectAdd(UAbilitySystemComponent*, const FGameplayEffectSpec&, const FActiveGameplayEffectHandle&,
+		const UStatusEffectComponent*)
 {
-	Refresh();
+	(void)Refresh();
+}
+
+void UStatusEffectWidget::StatusEffectRemove(UAbilitySystemComponent* Target, const FGameplayEffectRemovalInfo& RemovalInfo,
+		const UStatusEffectComponent* EffectInfo)
+{
+	(void)Refresh();
 }
 
 TCoroutine<> UStatusEffectWidget::Refresh(const FForceLatentCoroutine)

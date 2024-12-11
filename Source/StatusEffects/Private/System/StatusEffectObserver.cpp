@@ -49,6 +49,26 @@ FOnStatusEffectRevoked& UStatusEffectObserver::OnStatusEffectRevoked() const
 	return OnStatusEffectRevokedDelegate;
 }
 
+FOnStatusEffectAdded& UStatusEffectObserver::OnStatusEffectAdded() const
+{
+	return OnStatusEffectAddedDelegate;
+}
+
+FOnStatusEffectRemoved& UStatusEffectObserver::OnStatusEffectRemoved() const
+{
+	return OnStatusEffectRemovedDelegate;
+}
+
+FOnStatusEffectAddedOverride& UStatusEffectObserver::OnStatusEffectAddedOverride() const
+{
+	return OnStatusEffectAddedOverrideDelegate;
+}
+
+FOnStatusEffectRemovedOverride& UStatusEffectObserver::OnStatusEffectRemovedOverride() const
+{
+	return OnStatusEffectRemovedOverrideDelegate;
+}
+
 EObserverOverrideResult UStatusEffectObserver::OnStatusEffectAddedBP_Implementation(UAbilitySystemComponent* ASC, FGameplayEffectSpec Spec,
 	const FActiveGameplayEffectHandle& Handle, const UStatusEffectComponent* StatusEffectData)
 {

@@ -30,17 +30,17 @@ public:
 	//~UUserWidget Interface End
 	
 protected:
-
-	UFUNCTION()
-	virtual void StatusEffectAdd(UAbilitySystemComponent* Target, UAbilitySystemComponent* Source, const FStatusEffectRequest& RequestedEffect);
-
+	
 	UFUNCTION()
 	virtual void StatusEffectOverride(const FStatusEffectOverrideInfo& OverrideInfo);
+	
+	virtual void StatusEffectAdd(UAbilitySystemComponent* Target, const FGameplayEffectSpec& Spec, const FActiveGameplayEffectHandle& Handle,
+		const UStatusEffectComponent* EffectInfo);
+	
+	virtual void StatusEffectRemove(UAbilitySystemComponent* Target, const FGameplayEffectRemovalInfo& RemovalInfo,
+		const UStatusEffectComponent* EffectInfo);
 
-	UFUNCTION()
-	virtual void StatusEffectRemove(UAbilitySystemComponent* Target, const FStatusEffectRequest& RequestedEffect);
-
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = true))
 	TObjectPtr<UStatusEffectListView> List;
 
 private:
